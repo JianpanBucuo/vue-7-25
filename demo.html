@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<body>
+
+	<!-- 挂载点 模板 实例之间的关系 -->
+	<!-- 创建一个new实例，通过实例对象中的el属性将
+	创建的vue实例挂载到dom对象中。
+	模板 再挂载点内部的内容都可以成为模板内容
+    实例：结合模板和数据放到挂载点中
+	 -->
+ <div id="root">
+    <!-- <div v-on:click="handleClick"> {{content}} </div> -->
+    <div @click="handleClick"> {{content}} </div>
+     <!-- <div v-text="content"> </div> -->
+</div>
+ <!-- 插值表达式 -->
+<!--  v-text 标签会进行一次转意
+ v-html  标签转义-->
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+	 new Vue({
+	 	el:"#root",
+	  
+	 	data:{
+	 		// msg:"hello world",
+	 		// number:123,
+	 	   content:"hello"
+	 	},
+	 	methods:{
+	 		handleClick:function(){
+                 this.content="world";
+	 		}
+	 	}
+	 })
+
+
+</script>
+</body>
+</html>

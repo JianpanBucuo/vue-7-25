@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue</title>
+</head>
+<body>
+  <!-- 挂载点，模板，实例之间的关系 -->
+  <!-- div#root 是vue实例的挂载点，vue只会处理挂载点下面的内容 -->
+<!-- 挂载点 el属性后面对应的dom节点 -->
+<!-- 模板： 挂载点内部的内容，称为模板内容,可以写在挂载点里，也可以写在 vue实例的 template属性里面 -->
+ <div id="root"> 
+  <!-- hello  -->
+  <!-- <h1>{{msg}}</h1> -->
+ </div>
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+    new Vue({
+          el:"#root",
+          template:"  <h1>{{msg}}</h1>",
+          data:{
+          	msg:"hello World"
+          }
+    
+    })
+    //传递参数给Vue实例
+    // el: 让这个vue实例去接管页面中的哪一个元素, 和哪一个dom节点做绑定
+    // 着重于数据的编写
+
+
+     
+</script>
+</body>
+</html>
