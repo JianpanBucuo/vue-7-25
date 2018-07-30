@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 4</title>
+ 
+</head>
+<body>
+Vue.js使用了基于html的模板语法，允许开发者声明式地将DOM绑定至底层vue实例的数据。
+<br>
+文本
+<div></div>
+<span id="app" v-once>Message:{{msg}}</span>
+通过使用v-once指令，你也能执行一次性地插值。
+当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上的其他绑定数据。
+
+#原始html
+<div id="app2">
+<p> Using mustaches:{{rawHtml}}</p>
+<p>Using v-html directive:<span v-html="rawHtml"></span></p>
+</div>
+<button v-bind:disabled="isButtonDisabled">Button</button>
+<br>
+模板支持表达式
+{{number+1}}
+{{ok?"Yes":"No"}}
+这些表达式会在所属Vue实例的数据作用域下作为Javascript被解析，有个限制就是，
+每个绑定都只能包含耽搁表达式
+<br>
+模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如Math和Date。
+你不应该在模板表达式中试图访问用户定义的全局变量。
+<br />
+#指令
+指令是带有v-前缀的特殊特性。 指令的职责是，当表达式的值改变时，将其产生的连带影响，
+响应式地作用域DOM
+
+<p v-if="false">You see me</p>
+v-bind指令可以用于响应式地更新HTML特性
+v-on 指令用于监听DOM事件。
+
+
+<script type="text/javascript">
+ 
+var a=new Vue({
+  el:"#app",
+  data:{
+    msg:"111"
+  }
+})
+new Vue({
+  el:"#app2",
+  data:{
+    rawHtml:"<span style='color:red'>This should be red</span>"
+  }
+})
+
+</script>
+</body>
+</html>

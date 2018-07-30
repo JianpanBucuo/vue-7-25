@@ -22,6 +22,8 @@
   <!-- 这里的 `foo` 不会更新！ -->
   <button v-on:click="handleClick">Change it</button>
 </div>
+
+<div id="app2"></div>
 <script type="text/javascript">
  var data={a:1};
  var vm=new Vue({
@@ -40,6 +42,21 @@ var a=new Vue({
   methods:{
     handleClick:function(){obj.foo="2";}
   }
+})
+
+
+var data2={
+  a:1
+}
+var vm=new Vue({
+  el:"#app2",
+  data:data
+})
+
+vm.$data===data;//true
+vm.$el===document.getElementById("#app2");
+vm.$watch("a",function(newValue,oldValue){
+
 })
 </script>
 </body>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 4</title>
+ 
+</head>
+<body>
+ 模板内的表达式非常便利，但是设计他们的初衷是用于简单运算的，
+ 在模板中放入太多的逻辑会让模板过重且难以维护。
+
+<div id="example">
+	<p>Original message: "{{message}}"</p>
+	<p>Computed reversed message: "{{reversedMessage}}"</p>
+</div>
+<script type="text/javascript">
+     var vm=new Vue({
+     	el:"#example",
+     	data:{
+     		message:"Hello",
+     	},
+     	computed:{
+     		reversedMessage:function(){
+     			return this.message.split("").reverse().join("");
+     		}
+     	}
+     })
+ 
+</script>
+</body>
+</html>
