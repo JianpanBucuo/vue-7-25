@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 8</title>
+ 
+</head>
+<body>
+<!--  用v-for把一个数组对应为一组元素。
+ 我们用v-for指令根据一组数组的选项列表进行渲染。
+ v-for指令需要使用item in items形式的特殊语法。
+ items是源数据数组并且item是数组元素迭代的别名。 -->
+<ul id="example-1">
+  <li v-for="item in items">{{item.message}}</li>
+</ul>
+<!-- 在v-for块中，我们拥有对父作用域属性的完全访问权限。
+v-for还支持一个可选的第二个参数为当前项的索引。 -->
+<ul id="example-2">
+  <li v-for="(item,index) in items">{{parentMessage}}-{{index}}-{{item.message}}</li>
+</ul>
+<!-- 一个对象的v-for
+  第一个参数为 值。
+  第二个参数为 键值
+  第三个参数为 索引 -->
+<ul id="example-3">
+  <li v-for="(value,key,index) in object">{{index}}:{{key}}:{{value}}</li>
+</ul>
+#key
+当vue.js用v-for正在更新以渲染过的元素列表时，
+它默认用"就地复用"策略。
+如果数据项的顺序被改变，vue将不会移动DOM元素来匹配数据项的顺序。
+而是简单复用此处每个元素。
+
+为了给vue一个提示，以便它能跟踪每个节点的恶身份，从而重用或重新排序现有的元素，你需要为每项提供唯一key属性。
+理想的key值是每项都有的且唯一的id。
+<div v-for="item in items" :key="item.id">
+  <!-- 内容 -->
+</div>
+
+<!-- #变异方法
+Vue包含一组观察数组的变异方法，所以它们也将会触发视图更新。
+push()
+pop()
+shift()
+unshift()
+splice()
+sort()
+reverse()
+
+变异方法，会改变被这些方法调用的原始数组。
+相比之下，也有非变异方法： filter() concat() slice()
+这些不会改变原始数组，但总是返回一个新数组。
+ -->
+
+
+<script type="text/javascript">
+ 
+  new Vue({
+    el:"#example-1",
+    data:{
+      items:[
+             {message:"foo"},
+             {message:"bar"}
+            ]
+    }
+  })
+ new Vue({
+  el:"#example-2",
+  data:{
+    parentMessage:"Parent",
+    items:[{message:"foo"},{message:"bar"}]
+  }
+ })
+
+ const arr = ['red', 'green', 'blue'];
+
+for(let v of arr) {
+  console.log(v); // red green blue
+}
+ new Vue({
+  el:"#example-3",
+  data:{
+    object:{
+      firstName:"Nic",
+      lastName:"Jin",
+      age:"25"
+    }
+  }
+ })
+ // 由于javascript的限制，Vue不能检测以下变动的数组:
+ // 1.当你利用索引直接设置一个项时：
+ // vm.items[indexOfItem]=newValue
+ // 2.当你修改数组的长度时
+ // vm.items.length=newLength
+ var vm = new Vue({
+  data: {
+    items: ['a', 'b', 'c']
+  }
+})
+vm.items[1] = 'x' // 不是响应性的
+vm.items.length = 2 // 不是响应性的
+// 为了解决第一类问题，以下两种方式都可以实现和
+// vm.items[indexOfItem]=newValue相同的效果，同时也将触发状态更新
+// Vue.set(vm.items,indexOfItem,newValue);
+// vm.intems.splice(indexOfItem,1,newValue);
+</script>
+</body>
+</html>
