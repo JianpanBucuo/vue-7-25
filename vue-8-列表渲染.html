@@ -53,7 +53,13 @@ reverse()
 这些不会改变原始数组，但总是返回一个新数组。
  -->
 
+<ul id="vm2">
+  <li v-for="(item,key) in example">{{key}}:{{item}}</li>
+</ul>
 
+<ul id="app3">
+  <li v-for="n in evenNumbers">{{n}} </li>
+</ul>
 <script type="text/javascript">
  
   new Vue({
@@ -104,6 +110,45 @@ vm.items.length = 2 // 不是响应性的
 // vm.items[indexOfItem]=newValue相同的效果，同时也将触发状态更新
 // Vue.set(vm.items,indexOfItem,newValue);
 // vm.intems.splice(indexOfItem,1,newValue);
+
+//对象更改检测注意事项
+//还是由于Javascript的限制，Vue不能检测对象属性的添加或删除
+
+var vm=new Vue({
+  data:{a:1}
+})
+//vm.a 是响应式的
+vm.b=2;
+//vm.b不是响应式的
+//对于已经创建的实例，Vue不能动态添加根级别的响应式属性，
+//但是，可以使用Vue.set(object,key,value)方法向嵌套对象添加响应式属性。
+var vm2=new Vue({
+  el:"#vm2",
+  data:{
+    example:{name: 'Anika'}
+  }
+})
+Vue.set(vm2.example,"age","28");
+//还可以使用vm.$set实例方法，它只是全局Vue.set的别名
+vm.$set(vm2.example,"job","engineer");
+//有时你可能需要为已有对象赋予多个新属性
+vm2.example=Object.assign({},vm2.example,{location:"beijing",color:"black"});
+
+//显示过滤/排列结果
+ //有时，我们想要显示一个数组的过滤或排列副本，而不实际改变或
+ //重置原始数据，在这种情况下，可以创建返回过滤或排序数组的计算属性
+
+new Vue({
+  el:"#app3",
+  data:{
+    numbers:[1,2,3,4,5,6,7,8]
+  },
+  computed:{
+    evenNumbers:function(){
+      return this.numbers.filter((number)=>number%2===0)
+    }
+  }
+})
 </script>
 </body>
 </html>
