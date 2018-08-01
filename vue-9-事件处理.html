@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 8</title>
+ 
+</head>
+<body>
+ <!-- 可以用v-on指令监听DOM事件，并在触发时运行一些javascript代码 -->
+ <div id="app">
+   <button v-on:click="counter +=1">Add 1</button>
+   <p>The button above has been clicked {{counter}} times</p>
+ </div>
+<script type="text/javascript">
+   new Vue({
+    el:"#app",
+    data:{counter:1},
+
+   })
+   // aaa
+</script>
+</body>
+</html>
