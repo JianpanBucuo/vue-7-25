@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 8</title>
+ 
+</head>
+<body>
+  <div id="app1">
+    <input type="" v-model="message" placeholder="edit me" name="">
+    <p>Message is:{{message}}</p>
+    <br>
+    <span>Multiline message is :</span>
+    <p style="white-space: pre-wrap;">{{msg}}</p>
+    <textarea v-model="msg" placeholder="add multiple lines"></textarea>
+    <input type="checkbox" v-model="checked"  id="checkbox" name="">
+    <label for="checkbox">{{checked}}</label>
+  </div>
+
+<div id="example-3">
+  <input type="checkbox" id="jack" value="jack" v-model="checkedNames" name=""><label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="john" v-model="checkedNames" name=""><label for="john">John</label>
+  <input type="checkbox" id="mike" value="mike" v-model="checkedNames" name=""><label for="mike">Mike</label>
+  <br>
+  <span>Checked names:{{checkedNames}}</span>
+</div>
+
+<div id="example-4">
+  <input type="radio" id="one" value="First" v-model="picked" name=""><label for="one">One</label>
+  <input type="radio" id="two" value="Second" v-model="picked" name=""><label for="two">Two</label>
+  <br>
+  <span>Picked:{{picked}}</span>
+</div>
+
+<p>选择框</p>
+<div id="example-5">
+  <select v-model="selected" multiple>
+    <option disabled value="Please Select"></option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <span>Selected:{{selected}}</span>
+</div>
+
+<!-- 动态选项 -->
+<div id="example-6">
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+  </select>
+ <span>Selected:{{selected}}</span>
+</div>
+
+
+
+
+<script type="text/javascript">
+// 可以用v-model指令在表单<input> <textarea>及<select>元素上创建双向数据绑定
+//它会根据控件类型自动选择正确的方法来更新元素。尽管有些神奇，但v-model本质上不过是语法糖
+//它负责监听用户的输入事件及更新数据。并对一些极端场景进行一些特殊处理。
+new Vue({
+  el:"#app1",
+  data:{message:"aaa",msg:"",checked:""}
+
+})
+new Vue({
+  el:"#example-3",
+  data:{
+    checkedNames:[]
+  }
+})
+new Vue({
+  el:"#example-4",
+  data:{
+    picked:""
+  }
+})
+new Vue({
+  el:"#example-5",
+  data:{
+    selected:[]
+  }
+})
+new Vue({
+  el:"#example-6",
+  data:{
+    selected:"A",
+    options:[
+     {text:"One",value:"A"},
+     {text:"Two",value:"B"},
+     {text:"Three",value:"C"}
+
+
+    ]
+  }
+})
+</script>
+</body>
+</html>
