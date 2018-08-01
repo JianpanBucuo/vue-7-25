@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue</title>
+  <!-- 现代编程不是面向dom的编程了，而是面向数据的编程 -->
+  <!-- 如何给元素绑定事件，事件发生之后触发的方法写在vue实例里的method当中 -->
+</head>
+<body>
+  vue实例中的数据，事件与方法
+ <div id="root"> 
+ 
+  <h1>{{number}}</h1>
+  <h1 v-text="number"></h1>
+  <!-- v-text 是一个指令，告诉h1，它要显示的内容就是 number -->
+  <h1 v-html="content"></h1>
+  <h1 v-text="content"></h1>
+  <!-- v-html 不会转译， 
+      v-text 会进行一次转译 -->
+   <h1 v-on:click="handleClick">{{click}}</h1>   
+   <h1 @click="handleClick">{{click}}</h1>   
+   <!-- v-on的简写为@  -->
+   <!-- 绑定click事件， 这个方法定义在vue实例里的methods对象里。 -->
+ </div>
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+    new Vue({
+          el:"#root",
+         
+          data:{
+          	msg:"hello World",
+            number:"123",
+            content:"<h2>456</h2>",
+            click:"CliCK"
+          },
+          methods:{
+            handleClick:function(){ 
+             //this指向当前实例里data里的内容。
+              this.click="Me";
+            }
+          }
+    
+    })
+    // data数据项里我们可以配置任意的数据名字
+    //插值表达式
+
+     
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue</title>
+</head>
+<body>
+ <div id="root">{{msg}}</div>
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+    new Vue({
+          el:"#root",
+          data:{
+          	msg:"hello World"
+          }
+    
+    })
+    //传递参数给Vue实例
+    // el: 让这个vue实例去接管页面中的哪一个元素, 和哪一个dom节点做绑定
+    // 着重于数据的编写
+
+
+     
+</script>
+</body>
+</html>

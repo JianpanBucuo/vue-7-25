@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 1</title>
+ 
+</head>
+<body>
+ <!-- Vue.js的核心是一个允许采用简洁的模板语法来声明式地将数据渲染进DOM的系统 -->
+
+ <div id="app">{{message}}</div>
+ <!--  v-bind特性被称为指令。指令带有前缀v-,以表示它们是vue提供的特殊特性。
+ 它们在渲染的DOM上应用特殊的响应式行为。在这里，该指令的意思是将这个元素节点的title特性和vue实例的message属性保持一致。 -->
+ <div id="app-2"><span v-bind:title="message">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span> </div>
+<script type="text/javascript" src="js/script.js"> </script>
+
+<!-- 条件与循环 -->
+<!-- 不仅可以把数据绑定到DOM文本或特性，还可以绑定到DOM结构。 -->
+<div id="app-3">
+  <p v-if="seen">Now you can see me !</p>
+</div>
+
+<!-- v-for可以绑定数组的数据来渲染一个项目列表 -->
+
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">{{todo.text}} </li>
+  </ol>
+</div>
+
+<!-- v-on指令添加一个事件监听器，通过他来调用在vue实例中定义的方法 -->
+<div id="app-5">
+  <p>{{message}}</p>
+  <button v-on:click="reverseMessage">逆转信息</button>
+</div>
+
+vue提供了v-model指令，它能轻松实现表单输入和应用状态的双向关系
+<div id="app-6">
+  <p>{{message}}</p>
+  <input type="" v-model="message" name="">
+</div>
+
+
+<!-- 组件系统是vue的另一个重要概念，因为它是一种抽象，允许我们使用小型，
+  独立和通常可服用的组件构建大型应用 -->
+
+
+<div id="app-7">
+  <ol>
+    <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
+      
+    </todo-item>
+  </ol>
+</div>
+
+
+
+<script type="text/javascript">
+ var app=new Vue({
+   el:"#app",
+   data:{
+    message:"Hello Vue!"
+   }
+ })
+ var app2=new Vue({
+  el:"#app-2",
+  data:{
+    message:"页面加载于"+new Date().toLocaleString()
+  }
+ })
+ var app3=new Vue({
+   el:"#app-3",
+   data:{
+    seen:true
+   }
+ })
+ var app4=new Vue({
+  el:"#app-4",
+  data:{
+    todos:[
+       {text:"learn JS"},
+        {text:"learn Vue"},
+        {text:"Learn all project"}
+    ]
+  }
+ })
+ app4.todos.push({text:"learn HTML CSS"})
+
+var app5=new Vue({
+  el:"#app-5",
+  data:{message:"Hello Vue.js!"},
+  methods:{
+    reverseMessage:function(){
+      
+      this.message=this.message.split("").reverse().join("");
+    }
+  }
+}) 
+// 注意在reverseMessage方法中我们更新了应用的状态，但没有触碰dom，所有的dom都由vue来处理
+// 编写的代码只关心逻辑层面即可。
+
+var app6=new Vue({
+  el:"#app-6",
+  data:{
+    message:"Hello Vue!"
+  }
+})
+//一个组件本质上是一个拥有预定义选项的Vue实例，在vue中注册组件很简单
+//但是这样会为每个代办项渲染同样的文本，这看起来并不炫酷，
+//我们应该能从父作用域将数组传到子组件才对。
+Vue.component("todo-item",{
+  props:["todo"],
+  template:'<li>{{todo.text}}</li>'
+})
+var app7=new Vue({
+  el:"#app-7",
+  data:{
+    groceryList:[
+     {id:0,text:"蔬菜"},
+     {id:1,text:"奶酪"},
+     {id:2,text:"other things"}
+    ]
+  }
+})
+
+</script>
+</body>
+</html>

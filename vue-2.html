@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 1</title>
+ 
+</head>
+<body>
+  
+AAA
+<!-- 组件系统是vue的另一个重要概念，因为它是一种抽象，允许我们使用小型，
+  独立和通常可服用的组件构建大型应用 -->
+
+
+<div id="app-7">
+  <ol>
+    <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
+      
+    </todo-item>
+  </ol>
+</div>
+
+
+
+<script type="text/javascript">
+//一个组件本质上是一个拥有预定义选项的Vue实例，在vue中注册组件很简单
+//但是这样会为每个代办项渲染同样的文本，这看起来并不炫酷，
+//我们应该能从父作用域将数组传到子组件才对。
+Vue.component("todo-item",{
+  props:["todo"],
+  template:'<li>{{todo.text}}</li>'
+})
+var app7=new Vue({
+  el:"#app-7",
+  data:{
+    groceryList:[
+     {id:0,text:"蔬菜"},
+     {id:1,text:"奶酪"},
+     {id:2,text:"other things"}
+    ]
+  }
+})
+
+</script>
+</body>
+</html>

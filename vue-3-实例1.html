@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 3</title>
+ 
+</head>
+<body>
+一个Vue应用由一个通过new Vue创建的根Vue实例，以及可选的嵌套的，
+可复用的组件数组成。
+
+1.数据与方法
+当一个Vue实例被创建时，它向Vue的响应式系统中加入了其data对象中能找到的所有的属性，当这些属性的值发生改变时，视图将会产生响应。即匹配更新为新的值。
+  
+当这些数据改变时，试图会进行重新渲染，值得注意的是只有当实例被创建时data中
+存在的属性才是响应式的。
+如果你知道你会在晚些时候需要一个属性，但以开始它为空，或不存在
+那么你仅需要设置一些初始值。
+<div id="app">
+  <p>{{ foo }}</p>
+  <!-- 这里的 `foo` 不会更新！ -->
+  <button v-on:click="handleClick">Change it</button>
+</div>
+
+<div id="app2"></div>
+<script type="text/javascript">
+ var data={a:1};
+ var vm=new Vue({
+  data:data
+ })
+
+var obj = {
+  foo: 'bar'
+}
+
+Object.freeze(obj)
+//会阻止修改现有的属性，也意味着响应系统无法再追踪变化中
+var a=new Vue({
+  el: '#app',
+  data: obj,
+  methods:{
+    handleClick:function(){obj.foo="2";}
+  }
+})
+
+
+var data2={
+  a:1
+}
+var vm=new Vue({
+  el:"#app2",
+  data:data
+})
+
+vm.$data===data;//true
+vm.$el===document.getElementById("#app2");
+vm.$watch("a",function(newValue,oldValue){
+
+})
+</script>
+</body>
+</html>

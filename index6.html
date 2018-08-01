@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>v-if v-show v-for </title>
+ <!-- v-if 控制dom存在与否 -->
+ <!-- v-show 控制dom显示与否 -->
+ <!-- v-for 控制一组数据 循环显示 -->
+</head>
+<body>
+  <!-- v-if v-show v-for -->
+ <div id="root">
+   <div v-if="show">Hello world</div> 
+   <!-- 从页面删除 div会被删除-->
+   <div v-show="show">Hello world</div>
+   <!-- 隐藏页面元素  div会被隐藏-->
+   <button @click="handleClick">toggle</button>
+
+   <ul>
+     <li v-for="(item,index) of list" :key="index">{{item}}</li>
+      <!-- 循环展示 -->
+   </ul>
+ </div>
+
+
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+   new Vue({
+    el:"#root",
+   data:{ 
+    show:true,
+    list:[1,2,3]
+      },
+    methods:{
+      handleClick:function(){
+        this.show=!this.show;
+      }
+    }
+    
+   })
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>to do list</title>
+ 
+</head>
+<body>
+ 
+ <div id="root">
+      <div>
+        <input type="" name="" v-model="inputValue">
+        <button @click="handleClick">Submit</button>
+       </div> 
+       <ul>
+          <li v-for="(item, index) of list" :key="index">{{item}}</li>
+       </ul>
+ </div>
+
+
+
+<script type="text/javascript" src="js/script.js"> </script>
+<script type="text/javascript">
+   new Vue({
+    el:"#root",
+    data:{
+      inputValue:" ",
+      list:[]
+    },
+    methods:{
+      handleClick:function(){
+        this.list.push(this.inputValue);
+        this.inputValue=" ";
+      }
+    }
+  
+     
+    
+   })
+ 
+</script>
+</body>
+</html>
