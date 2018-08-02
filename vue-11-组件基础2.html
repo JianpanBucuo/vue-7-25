@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 10</title>
+ 
+</head>
+<body>
+ <div id="buttonClick">
+   <button-counter></button-counter>
+   <button-counter></button-counter>
+   <button-counter></button-counter>
+ </div>
+ <div id="blogPost">
+    <blog-post v-bind:title="111"></blog-post>
+ </div>
+ <div id="blog-post-demo">
+   <blog-post
+    v-for="item in post"
+    v-bind:title="item.title"
+    v-bind:key="item.key"
+   ></blog-post>
+ </div>
+ <div id="newBlog">
+   <newblog
+    v-for="item in more"
+    v-bind:post="item"
+    v-bind:key="item.id"
+   ></newblog>
+ </div>
+
+<div id="big">
+ <div :style="{fontSize:testSize+'em'}">
+  <newblog
+   v-for="item in s"
+   v-bind:post="item"
+   v-bind:key="item.id"
+   v-on:enlargetext="onEnlargeText"
+  ></newblog>
+ </div>
+</div>
+
+<div id="test">
+  <input type="" v-model="searchText" name="">
+  <!-- 等价于 -->
+  <input type="" name=""
+   v-bind:value="searchText"
+   v-on:input="searchText=$event.target.value"
+   >
+</div>
+
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="./js/script.js"></script>
+</body>
+</html>

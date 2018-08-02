@@ -21,6 +21,16 @@
    v-bind:title="item.title"
   ></blog-post>
 </div>
+
+<div id="example3">
+  <blog
+   v-for="post in posts"
+   v-bind:key="post.id"
+   v-bind:post="post"
+  >
+    
+  </blog>
+</div>
 <script type="text/javascript">
 
 
@@ -57,6 +67,24 @@ new Vue({
     ]
   }
 
+
+})
+
+Vue.component("blog",{
+  props:["post"],
+  template:`
+           <div class="blog"><h3>post.title</h3><div v-html='post.content'></div></div>
+  `
+})
+new Vue({
+  el:"#example3",
+  data:{
+   posts:[   
+    {id:1,title:"123",content:"number"},
+    {id:2,title:"c++",content:"let"},
+    {id:3,title:"html",content:"css"}
+    ]
+  }
 
 })
 </script>
