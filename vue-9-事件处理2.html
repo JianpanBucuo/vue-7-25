@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 9事件处理</title>
+ 
+</head>
+<body>
+<div id="example">
+  <button v-on:click="count++">Add 1</button>
+  <p>You have been click for {{count}} times</p>
+</div>  
+
+<div id="example2">
+  <button 
+  v-on:mousedown="greet"
+  v-on:mouseover="greet"
+  >Greet</button>
+</div>
+
+<div id="example3">
+  <button v-on:click="warn('From cannot be submitted yet',$event)">Warn</button>
+  <!-- 阻止单机事件继续传播 -->
+  <a v-on:click.stop="doThis"></a>
+  <!-- 提交事件不再重载页面 -->
+  <form v-on:submit.prevent="onSubmit"></form>
+  <!-- 修饰符可以串联 -->
+  <a v-on:click.stop.prevent="doThat"></a>
+  <!--只有修饰符-->
+  <form v-on:submit.prevent></form>
+  <!-- 添加事件监听器时使用事件捕获事件 -->
+  <!-- 即元素自身触发的事件现在此处理，然后才交由内部元素进行处理 -->
+  <div v-on:click.captute="doThis"></div>
+  <!-- 只当在event.target是当前元素自身时触发处理函数 -->
+  <!-- 即事件不是从内部元素触发的 -->
+  <div v-on:click.self="doThat"></div>
+
+<!-- 使用修饰符时，顺序很重要，相应的代码会以同样的顺序产生
+     因此，用 v-on:click.prevent.self会阻止所有的点击
+     而       v-on:click.self.prevent只会阻止对元素自身的点击 -->
+  
+  <div v-on:scroll.passive="onScroll"></div>
+   <!-- 滚动事件的默认行为(即滚动行为)将会立即出发 -->
+   <!-- 而不会等待 onScroll 完成 -->
+   <!-- 这其中包含 event.preventDefault()的情况 -->
+
+
+</div>
+<script type="text/javascript">
+
+new Vue({ 
+  el:"#example",
+  data:{
+    count:0
+  }
+})
+
+new Vue({
+  el:"#example2",
+  data:{name:"Vue.js"},
+  methods:{
+    greet:function(){console.log(this.name)
+               if(event){console.log(event.target.tagName);}
+    }
+  }
+})
+
+//有时也需要在内联语句处理器中访问原始的DOM事件。
+//可以用特殊变量$event把它传入方法。
+
+new Vue({
+  el:"#example3",
+   methods:{
+    warn:function(word,event){
+       if(event) event.preventDefault();
+       console.log(word);
+    }
+   }
+})
+
+</script>
+</body>
+</html>
