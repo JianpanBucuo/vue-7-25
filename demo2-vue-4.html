@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<body>
+  <div id="component-demo">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <blog-post title="AAA"></blog-post>
+  </div>
+  <div id="blog-post-demo">
+    <blog-post
+       v-for="post in posts"
+       v-bind:key="post.id"
+       v-bind:title="post.title"
+    ></blog-post>
+  </div>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ Vue.component("button-counter",{
+  data:function(){
+    return {
+      count:0
+    }
+  },
+  template:`<button v-on:click="count++">You clicked me {{count}} times</button>`
+ })
+ // 一个组件的data选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝
+
+
+ Vue.component("blog-post",{
+  props:["title"],
+  template:`<h3>{{title}}</h3>`
+ })
+ new Vue({el:"#component-demo"});
+ 
+ new Vue({
+  el:"#blog-post-demo",
+  data:{
+    posts:[
+        {id:0,title:"AAA"},
+        {id:1,title:"BBB"},
+        {id:2,title:"CCC"},
+    ]
+  }
+ })
+
+</script>
+</body>
+</html>

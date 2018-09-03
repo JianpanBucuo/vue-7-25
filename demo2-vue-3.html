@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<body>
+  <div id="example-2">
+    <button v-on:click="greet">Greet!</button>
+  </div>
+  <div id="example-3">
+    <button v-on:click="say('Hi')">Hi</button>
+    <button v-on:click="say('Hello')">Hello</button>
+  </div>
+
+  <div id="example-4">
+    <input type="checkbox" id="jack" value="Jack" v-model="checkNames" name="">
+    <input type="checkbox" id="nic" value="Nic" v-model="checkNames" name="">
+    <input type="checkbox" id="mike" value="Mike" v-model="checkNames" name="">
+    <br>
+    <span>Checked Names :{{checkNames}}</span>
+  </div>
+
+  <div id="select">
+    <select v-model="selected">
+      <option disabled value="">Please select</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+     <span>Selected: {{ selected }}</span>
+  </div>
+
+<div id="options">
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+
+  </select>
+  <span>Selected: {{ selected }}</span>
+</div>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+  let example2 = new Vue({
+     el:"#example-2",
+     data:{
+      name:"Vue"
+     },
+     methods:{
+      greet:function(event){
+        alert("hello"+this.name+"!");
+         if(event){
+          alert(event.target.tagName);
+         }
+      }
+     }
+  })
+let example3 = new Vue({
+             el: "#example-3",
+             data: {},
+             methods: {
+                  say: function(msg) {
+                      alert(msg);
+                  }
+             }
+})
+
+let example4 = new Vue({
+    el:"#example-4",
+    data:{
+      checkNames:[]
+    }
+})
+
+new Vue({
+  el:"#select",
+  data:{
+    selected:"A"
+  }
+})
+
+new Vue({
+  el:"#options",
+  data:{
+    selected:"",
+    options:[
+         {text:"One",value:"A"},
+         {text:"Two",value:"B"},
+         {text:"Three",value:"C"}
+    ]
+  }
+})
+
+
+</script>
+</body>
+</html>
