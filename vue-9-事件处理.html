@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 8</title>
+ 
+</head>
+<body>
+ <!-- 可以用v-on指令监听DOM事件，并在触发时运行一些javascript代码 -->
+ <div id="app">
+   <button v-on:click="counter +=1">Add 1</button>
+   <p>The button above has been clicked {{counter}} times</p>
+ </div>
+
+<!--  //然而许多事件处理逻辑会更为复杂，所以直接把javascript代码写在v-on指令是不可行的。因此 v-on还可以接收一个需要调用的方法名称。 -->
+<div id="example-2">
+  <button v-on:click="greet">Greet</button>
+</div>
+<!-- 内联处理器中的方法 -->
+<!-- 除了直接绑定到一个方法，也可以在内联Javascript语句中调用方法 -->
+
+<div id="example-3">
+  <button v-on:click="say('Hi')">Say Hi</button>
+  <button v-on:click="say('What')">Say What</button>
+  <button v-on:click="warn('Form cannot be submitted yet.',$event)">Event</button>
+</div>
+
+
+<script type="text/javascript">
+   new Vue({
+    el:"#app",
+    data:{counter:1},
+
+   })
+   // aaa
+   var example2=new Vue({
+    el:"#example-2",
+    data:{name:"Vue.js"},
+    methods:{
+      greet:function(event){
+          console.log("Hello"+this.name+"!");
+          if(event ){
+          console.log(event.target.tagName);
+          }
+      }
+    }
+   })
+   new Vue({
+    el:"#example-3",
+    methods:{
+      say:function(msg){console.log(msg);},
+      warn:function(msg,event){
+        if (event) {console.log(event); event.preventDefault()}
+         console.log(msg);
+      }
+    }
+   })
+// 事件修饰符
+//在事件处理程序中调用 event.preventDefault()或
+//event.stopPropagation()是非常常见的需求。
+//尽管我们可以在方法中轻松实现这一点，但更好的方式是，
+//方法只有纯粹的数据逻辑，而不是去处理DOM事件细节。
+//为了解决这个问题。Vue.js为v-on提供了事件修饰符，之前提过
+//修饰符是由点开头的指令后缀来表示的。
+
+// .stop 阻止点击事件继续传播
+// .prevent  不触发默认事件
+// .capture  
+// .once   绑定事件一次 （触发后移除事件）
+//？
+
+
+</script>
+</body>
+</html>

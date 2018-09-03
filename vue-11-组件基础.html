@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 10</title>
+ 
+</head>
+<body>
+ <div id="components-demo">
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+  <button-counter></button-counter>
+</div>
+<div id="example2">
+  <blog-post title="My journy with Vue"></blog-post>
+  <blog-post title="The second Blog"></blog-post>
+  <blog-post
+   v-for="item in posts"
+   v-bind:key="item.id"
+   v-bind:title="item.title"
+  ></blog-post>
+</div>
+
+<div id="example3">
+  <blog
+   v-for="post in posts"
+   v-bind:key="post.id"
+   v-bind:post="post"
+  >
+    
+  </blog>
+</div>
+<script type="text/javascript">
+
+
+ Vue.component("button-counter",{
+  data:function(){
+    return {count:0}
+  },
+ template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+ })
+  new Vue({ el: '#components-demo' })
+// 因为组件是可复用的Vue实例，所以它们与new Vue接收相同的选项
+// 例如 data，computed，watch，methods以及生命周期钩子等。
+
+//通常一个应用会以一颗嵌套的组件树的形式来组织
+
+//为了能在模板中使用，这些组件必须先注册以便vue能够识别。
+//这里有两种组件的组册类型。全局组册和局部组册。
+//通过prop向子组件传递数据
+//prop是你可以在组件上组册的一些自定义特性。
+//当一个值传递给一个prop特性的时候，他就会变成了那个组件实例的一个属性。
+//我们可以用一个props选项将其包含在该组件可接受的prop列表中。
+Vue.component("blog-post",{
+  props:["title"],
+  template:"<h3>{{title}}</h3>"
+})
+
+new Vue({
+  el:"#example2",
+  data:{
+    posts:[
+         {id:1,title:"My journey with Vue"},
+         {id:2,title:"Blogging with Vue"},
+         {id:3,title:"Why Vue is so fun"}
+    ]
+  }
+
+
+})
+
+Vue.component("blog",{
+  props:["post"],
+  template:`
+           <div class="blog"><h3>post.title</h3><div v-html='post.content'></div></div>
+  `
+})
+new Vue({
+  el:"#example3",
+  data:{
+   posts:[   
+    {id:1,title:"123",content:"number"},
+    {id:2,title:"c++",content:"let"},
+    {id:3,title:"html",content:"css"}
+    ]
+  }
+
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Vue 10</title>
+ 
+</head>
+<body>
+ <!-- 在我们开发blog-post组件时，它的一些功能可能要求我们和父级组件进行沟通，例如我们可能会引入一个可访问性的功能来放大博文的字号，同时让页面的其他部分保持默认的字号 -->
+
+<script type="text/javascript">
+	 new Vue({
+          el:"#blog-post-demo",
+          data:{
+          	posts:[
+                 { id:1,title:"My journey with Vue"},
+                 {id:2,title:"Blogging with Vue"},
+                 {id:3,title:"Why Vue is so fun"}
+          	],
+          	postFontSize:1
+          }
+      })
+</script>
+
+
+
+<script type="text/javascript" src="./js/vue-11.js"></script>
+</body>
+</html>
