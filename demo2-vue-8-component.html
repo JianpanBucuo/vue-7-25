@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+  .active{ color:red; }
+  .text-danger{text-decoration: underline;  }
+</style>
+<body>
+ 
+
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+ Vue.component("component-a",{})
+ Vue.component("component-b",{})
+ Vue.component("component-c",{})
+
+ //局部注册
+ var a = { }
+ var b = { }
+ var c = { }
+
+new Vue({
+  el:"#app",
+  components:{
+    "component-a":a,
+    "component-b":b
+  }
+})
+
+var comA = {} 
+var comB = {
+  components:{
+    component-b: comA
+  }
+}
+
+import componentA from "./componentA.vue";
+
+export default {
+   components:{ 
+       componentA: componentA
+   }
+}
+//
+
+import componentA from "./componentA.vue";
+import Basic from "./Basic.vue";
+
+export default {
+ components:{
+      componentA,
+      Basic
+ }
+  
+}
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+  .active{ color:red; }
+  .text-danger{text-decoration: underline;  }
+</style>
+<body>
+ <div id="app">
+   <blog-post  post-title="hello"></blog-post>
+   <blog-builder
+     v-for="post in posts"
+     v-bind:title="post.title"
+     v-bind:commit-ids="post.commitIds"
+     >
+     
+
+   </blog-builder>
+
+ </div>
+<div id="emit-example-simple">
+  <welcome-button v-on:welcome="sayHi"></welcome-button>
+</div>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+ Vue.component("blog-post",{
+  props:["postTitle"],
+  template:`<h3>{{postTitle}}</h3>`
+ })
+
+
+Vue.component("blog-builder",{
+  props:{
+         title: String,
+         likes: Number,
+         isPublished: Boolean,
+         commitIds: Array,
+         author: Object 
+       },
+  data: function(){
+     return {
+
+     }
+  },
+  computed:{
+
+  },
+  methods:{
+
+  },
+  watched:{
+
+  },
+        template:`
+             <div>
+              <p>title:{{title}}</p>
+              <p>likes:{{likes}}</p>
+              <p>isPublished:{{isPublished}}</p>
+              <p>commitIds:{{commitIds}}</p>
+              <p>author:{{author}}</p>
+             </div> 
+        `
+})
+
+new Vue({
+  el:"#app",
+   data:{
+        posts:[
+             {id:0,title:"ABC",likes:"YeAH",commitIds:[1,2,3]},
+             {id:1,title:"XXX",likes:"No", commitIds:[2,3,4,5]},
+        ]
+   }
+})
+
+//单向数据流
+//所有的prop都使得其父子prop之间形成了一个单向下行绑定:
+//父级prop的更新会向下流动到子组件中，但是反过来则不行
+//这样会防止从子组件意外改变父级组件的状态，
+//从而导致你的应用的数据流向难以理解
+//额外的，每次父级组件发生更新时，子组件中的prop都将会刷新为最新的值/
+
+//prop的验证
+Vue.component("my-component",{
+  props:{
+    propA: Number,
+    propB: [String, Number],
+    propC: {
+      type: String,
+      required: true,
+    },
+    propD: {
+      type: Number,
+      default: 100
+    },
+    propE: {
+      type: Object,
+      default: function(){
+        return { message: "Hello !" }
+      }
+    },
+    //自定义验证函数
+    propF: {
+      validator: function(value) {
+        return ["Success", "warning", "danger"].indexOf(value) !== -1;
+      }
+    }
+  }
+})
+
+Vue.component('welcome-button', {
+  template: `
+    <button v-on:click="$emit('welcome')">
+      Click me to be welcomed
+    </button>
+  `
+})
+
+new Vue({
+  el: '#emit-example-simple',
+  methods: {
+    sayHi: function () {
+      alert('Hi!')
+    }
+  }
+})
+</script>
+</body>
+</html>

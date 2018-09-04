@@ -19,6 +19,14 @@
        v-bind:title="post.title"
     ></blog-post>
   </div>
+
+  <div id="builder">
+    <post-builder
+        v-for="post in posts"
+        v-bind:post="post"
+        v-bind:key="post.id"
+    ></post-builder>
+  </div>
 <!-- <script type="text/javascript" src="js/script.js"> </script> -->
 <script type="text/javascript">
  Vue.component("button-counter",{
@@ -48,6 +56,29 @@
     ]
   }
  })
+
+
+Vue.component("post-builder",{
+  props:["post"],
+  template:`
+       <div class="blod-post">
+         <h3>{{post.title}}</h3>
+         <p v-html='post.content'></p>
+       </div>
+  `
+})
+
+new Vue({
+  el:"#builder",
+  data:{
+    posts:[
+        {title:"AAA", content:"111", id:0},
+        {title:"BBB", content:"222", id:1},
+        {title:"CCC", content:"333", id:1},
+    ]
+  }
+})
+
 
 </script>
 </body>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<body>
+ <div id="blog">
+  <div :style="{fontSize:postFontSize + 'em'}">
+   <blog-post 
+    v-for="post in posts"
+    v-bind:key="post.id"
+    v-bind:post="post"
+    v-on:large="_Enlarge"
+    >  
+   </blog-post>
+ </div>
+ </div>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+ Vue.component("blog-post",{ 
+   props:["post"],
+   template:`
+          <div class="blog">
+            <h3>{{post.title}}</h3>
+            <button v-on:click="$emit('large',0.1)">Enlarge Text</button>
+            <p>{{post.content}}</p>
+          </div>
+    `
+ })
+new Vue({
+  el:"#blog",
+  data:{
+        posts:[
+             { id:0,title:"AAA",content:"aaa" },
+             { id:1,title:"AAA",content:"bbb" },
+             { id:2,title:"AAA",content:"ccc" }
+        ],
+        postFontSize:2
+  },
+  methods:{
+    _Enlarge:function(text){
+      this.postFontSize += text;
+    }
+
+  }
+})
+//通过事件向父级组件发送消息
+//在我们开发blog-post组件时，它的一些功能可能要求我们和父级组件进行沟通
+
+</script>
+</body>
+</html>

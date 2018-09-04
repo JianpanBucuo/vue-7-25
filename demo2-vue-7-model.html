@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+  .active{ color:red; }
+  .text-danger{text-decoration: underline;  }
+</style>
+<body>
+
+<div id="app">
+  <input type="" v-model="searchText" name="">
+  <span>{{searchText}}</span>
+   
+  <input type="" 
+  v-bind:value="text" 
+  v-on:input="text=$event.target.value"
+  name="">
+  <span>{{text}}</span>
+</div>
+
+
+
+
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+let app = new Vue({
+  el:"#app",
+  data:{
+    searchText:"",
+    text:""
+  }
+
+})
+
+</script>
+</body>
+</html>
