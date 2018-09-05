@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+ 
+<div id="app">
+  <button @click='toShow'>点击显示子组件</button>
+  <component v-bind:is="which_to_show"></component>
+</div>
+
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+
+new Vue({
+  el: "#app",
+  data:{
+    which_to_show: "first"
+  },
+  methods:{
+    toShow: function() {
+        const arr = ["first", "second", "third"];
+        let index = arr.indexOf(this.which_to_show);
+        if(index < 2){
+          this.which_to_show = arr[index + 1];
+        }else{
+          this.which_to_show = arr[0];
+        }
+    }
+  },
+  components:{
+    first: {
+        template: `<div>1</div>`
+    },
+    second: {
+        template: `<div>2</div>`
+    },
+    third: {
+        template: `<div>3</div>`
+    }
+  }
+  
+})
+
+
+
+</script>
+</body>
+</html>
