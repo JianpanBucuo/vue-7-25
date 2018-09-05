@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+ .color{color:red;}
+</style>
+<body>
+ 
+ <div id="slot">
+    <slot-demo >!!!!</slot-demo>
+    <text-builder></text-builder>
+    <special-builder>
+      <template slot="header"><h1>Here might be a page title</h1></template>
+        <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
+  <template slot="footer"><p>Here's some contact info</p></template>
+ 
+
+    </special-builder>
+ <select-button>aaa</select-button>
+ <li-builder title="aaaa"></li-builder>
+ </div>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+Vue.component("slot-demo",{
+  props:{
+      url:{
+        type:String,
+        default:"aaa"
+      }
+  },
+  template:`
+           <div>
+            <a 
+            v-bind:href="url"
+            class="slot-nav">
+            Hi
+            <slot></slot>
+            </a>
+            
+            </div>
+  `
+})
+Vue.component("text-builder",{
+  prop:{
+
+  },
+  template:`
+           <div>
+              <input type="text" v-model="test">
+               <span>{{test}}</span>
+           </div>
+  `,
+  data:function(){
+        return {
+          test:""
+        }
+  }
+})
+Vue.component("special-builder",{
+  props:{
+   
+  },
+  template:
+            `
+             <div class="container" v-bind:class="{has:isActive}">
+                 <header>
+                   <slot name="header"></slot>
+                 </header>
+                 <main>
+                    <slot></slot>
+                 </main>
+                 <footer>
+                   <slot name="footer"></slot>
+             
+                 </footer>
+                 
+             </div>
+            `
+  ,
+  data:function(){
+    return {
+            isActive:true,
+            error:true
+    }
+  },
+  computed:{ }
+})
+Vue.component("select-button",{
+  props:{
+        
+  },
+  template:`
+         <button type="submit">
+           <slot>Submit</slot>
+         </button>
+  `,
+  data:function(){
+    return {
+            isActive:true,
+            error:true
+    }
+  },
+  computed:{
+         active:function(){
+              return 
+              {this.isActive && this.error}
+         }
+  }
+})
+
+Vue.component("li-builder",{
+  props:{
+      title:{
+        type:String,
+        default:"ABXC"
+      }
+  },
+  template:
+  `
+  <div>
+  {{title}}
+   <ul>
+      
+     <li
+        v-for="todo in posts"
+        v-bind:key="todo.id"
+        >
+        <slot v-bind:todo="todo">
+        {{todo.test}}
+        </slot>
+     </li>
+   </ul> 
+      </div>  
+  `,
+  data:function(){
+    return{
+        posts:[
+           {id:0,test:"AAA"},
+           {id:1,test:"BBB"},
+           {id:2,test:"CCC"}
+        ]
+    }
+  }
+})
+
+
+
+new Vue({
+  el:"#slot"
+})
+
+//插槽的默认内容
+
+
+</script>
+</body>
+</html>

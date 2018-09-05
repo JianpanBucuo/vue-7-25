@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+     .fade-enter-active,  .fade-leave-active{ transition: opacity .5s; }
+     .fade-enter,.fade-leave-to{
+      opacity: 0;
+     }
+     .fade-enter-to, .fade-leave{opacity: .5;}
+     .slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(200px);
+  opacity: 0;
+}
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.list-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+	</style>
+</head>
+<body>
+ <!-- Vue提供了transition的封装组件，在下列情况下，可以给任何元素和组件添加进入/离开过度 -->
+
+ <div id="demo">
+   <button v-on:click="show = !show">Toggle</button>
+   <transition name="fade">
+     <p v-if="show">
+       Hello
+     </p>
+   </transition>
+   <show-component name="slide"></show-component>
+   <slide-component></slide-component>
+   <animation-component></animation-component>
+   <table-component></table-component>
+ </div>
+
+ <div id="list-demo" class="demo">
+  <button v-on:click="add">Add</button>
+  <button v-on:click="remove">Remove</button>
+  <transition-group name="list" tag="p">
+    <span v-for="item in items" v-bind:key="item" class="list-item">
+      {{ item }}
+    </span>
+  </transition-group>
+</div>
+
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+Vue.component("show-component",{
+  props:{
+       name:{
+        type:String,
+        default:"Click"
+       }
+  },
+  template:`
+      <div>
+          <button v-on:click="show=!show">{{name}}</button>
+          <transition name="fade" >
+             <p v-if="show">Hello</p>
+          </transition>
+      </div>
+  `,
+  data:function(){
+    return {
+       show:true
+    }
+  }
+})
+
+Vue.component("slide-component",{
+  props:{
+    name:{
+      type:String,
+      default:"Slide"
+    }
+  },
+  data:function(){
+    return {
+          show:true
+    }
+  },
+  template:`
+         <div>
+          <button @click="show=!show">Slide</button>
+          <transition name="slide-fade">
+             <p v-if="show">!!!!!</p>
+          </transition>
+          </div>
+  `
+})
+
+Vue.component("animation-component",{
+  props:{
+
+  },
+  data:function(){
+    return {
+         show:true
+    }
+  },
+  template:
+  `
+   <div>
+    <button v-on:click="animate()">Animate</button>
+        <transition name="bounce"  >
+          <p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus</p>
+        </transition>
+   </div>
+  `,
+  methods:{
+    animate:function() {
+        this.show = ! this.show;
+    }
+  }
+})
+
+Vue.component("table-component",{
+  props:{
+       items:{
+          type:Array
+       }
+  },
+  data:function(){
+    return { 
+            posts:[
+              {id:0,title:"AAA"},
+              {id:1,title:"BBB"},
+              {id:2,title:"CCC"}
+            ]
+    }
+  },
+  template:
+            `
+             <transition>
+  <table v-if="posts.length > 0">
+     <tr>
+       <td 
+       v-for="post in posts"
+       v-bind:key="post.id"
+       >{{post.title}}</td>
+     </tr>
+  </table>
+  <p v-else>Sorry, no items found.</p>
+</transition>
+            `
+})
+
+
+new Vue({
+  el:"#demo",
+  data:{
+    show:true
+  }
+})
+
+
+new Vue({
+  el: '#list-demo',
+  data: {
+    items: [1,2,3,4,5,6,7,8,9],
+    nextNum: 10
+  },
+  methods: {
+    randomIndex: function () {
+      return Math.floor(Math.random() * this.items.length)
+    },
+    add: function () {
+      this.items.splice(this.randomIndex(), 0, this.nextNum++)
+    },
+    remove: function () {
+      this.items.splice(this.randomIndex(), 1)
+    },
+  }
+})
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+
+
+
+
+
+ 
+
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+// 在绝大多数情况下，我们最好不要触达令一个组件实例内部或动手操作DOM元素。
+// 不过也确实在一些情况下做这些事情是合适的。
+  
+//根实例
+new Vue({
+	el:"#app",
+	data:{
+		foo:1
+	},
+	computed:{
+        bar:function(){
+
+        }
+	},
+	watch:{
+        baz:function(){
+
+        }
+	},
+	methods:{
+
+	}
+})
+//所有的子组件都可以将这个实例作为一个全局store来访问或使用
+
+this.$root.foo
+this.$root.foo = 2;
+this.$root.bar
+this.$root.baz()
+
+
+//访问父级组件实例
+和$root类似，$parent属性可以用来从一个子组件访问父组件的实例。
+它提供了一种机会，可以在后期随时触达父级组件，以替代将数据以prop的方式传入子组件的方式。
+
+
+
+
+
+</script>
+</body>
+</html>
