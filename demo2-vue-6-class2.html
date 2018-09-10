@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+  .active{ color:red; }
+  .text-danger{text-decoration: underline;  }
+</style>
+<body>
+<div id="app">
+  <com-a title="aaa" classObject="{active,'text-danger'}">!!!!</com-a>
+</div>
+<script type="text/javascript">
+
+let x = Vue.extend({
+  template:
+           `
+           <div>
+            <p :class="{active:isActive,error:'true'}">asdsad</p>
+            <p :class=classObject> {{title}} <slot></slot> </p>
+            </div>
+           `,
+  data:function(){
+    return {
+      isActive:true,
+      // classObject:{
+      //    active: true,
+      //   'text-danger': false        
+      // }
+    }
+  },
+  props:{
+    classObject:Object,
+    title:String
+  }
+})
+
+new Vue({
+  el:"#app",
+  components:{
+    "com-a":x
+  }
+
+}) 
+  
+
+</script>
+</body>
+</html>

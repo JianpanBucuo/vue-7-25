@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<style type="text/css">
+ 
+</style>
+<body>
+ <div id="app">
+   <com-x url="aaa">Your profile</com-x>
+ </div>
+
+<div id="app2">
+  <com-b>
+     <template slot="header">
+    <h1>Here might be a page title</h1>
+  </template>
+  
+  <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
+
+  <template slot="footer">
+    <p>Here's some contact info</p>
+  </template>
+  </com-b>
+<com-b>
+  
+  <h1 slot="header">111</h1>
+  <p>~~~~~</p>
+  <h3 slot="footer"> r</h3>
+</com-b>
+
+</div>
+<script type="text/javascript">
+  // 如果没有包含一个 <slot> 元素，则任何传入它的内容都会被抛弃。
+var x = Vue.extend({
+  template:
+           `
+           <div>
+            <a  href="url"
+                 class="nav-link"
+            >URL 
+             </a><slot> </slot>
+            </div>
+           `,
+
+});
+
+new Vue({
+  el:"#app",
+  components:{
+    "com-x":x
+  },
+  props:{
+    url:{
+      type:String
+    }
+  }
+})
+
+let y = Vue.extend({
+  template: 
+            `
+             <div class="container">
+               <header>
+                 <slot name="header"></slot>
+               </header>
+               <main>
+                  <slot  ></slot>
+               </main>
+               <footer>
+                  <slot name="footer">111111</slot>
+               </footer>
+
+             </div>
+            `
+})
+
+new Vue({
+  el:"#app2",
+  components:{
+    "com-b":y
+  }
+})
+// 有的时候为插槽提供默认的内容是很有用的。
+// 例如，一个submit-button组件可能希望这个按钮的默认内容是submit，
+// 但是允许用户覆写为"Save" "Upload"或别的内容
+//你可以在<slot>标签内部指定默认的内容来做到这一点
+</script>
+</body>
+</html>
