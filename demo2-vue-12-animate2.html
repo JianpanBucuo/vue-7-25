@@ -19,6 +19,50 @@
 <script type="text/javascript">
  
 
+let componentOne={
+    props:{},
+  data:function(){
+    return {
+
+    }
+  },
+  template:
+  `
+      <div>One</div>
+  `
+}
+
+// Vue.component("template-one",{
+
+// })
+
+
+Vue.component("template-two",{
+  props:{},
+  data:function(){
+    return {
+
+    }
+  },
+  template:
+  `
+      <div>One</div>
+  `
+})
+
+Vue.component("template-three",{
+  props:{},
+  data:function(){
+    return {
+
+    }
+  },
+  template:
+  `
+      <div>One</div>
+  `
+})
+
 new Vue({
   el: "#app",
   data:{
@@ -36,9 +80,7 @@ new Vue({
     }
   },
   components:{
-    first: {
-        template: `<div>1</div>`
-    },
+    first: componentOne,
     second: {
         template: `<div>2</div>`
     },
@@ -48,9 +90,6 @@ new Vue({
   }
   
 })
-
-
-
 </script>
 </body>
 </html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+   <div id="app">
+       <todo :todo-date="gro"></todo>
+   </div>
+   <div id="app2">
+       <my-component><my-component>
+   </div>
+
+   <section></section>
+<reader></reader>
+<script type="text/javascript">
+
+
+let itemDetail = {
+    template : 
+                `<li>{{text}}</li>`,
+    props:{
+        text:{
+            type:String,
+            default:""
+        }
+    }
+
+}
+
+let todoItem = Vue.extend(itemDetail);
+
+
+let parentDetail = {
+     template:
+              `
+               <ul>
+                  <todo-item
+                     v-for="(item, index) in todoDate"
+                     v-text="item.text"
+                  ></todo-item>
+               </ul>
+              `,
+     props:{
+        todoDate:{
+             type:Array,
+             default:[]
+        }
+     },
+     components:{
+        todoItem:todoItem
+     }
+}
+Vue.component("todo",parentDetail);
+
+ new Vue({
+    el:"#app",
+    data:{
+        gro:[
+          {id:0,text:"AAA"},
+          {id:1,text:"bbbb"},
+          {id:2,text:"c"}
+        ]
+    }
+ })
+
+var MyComponent = Vue.extend({
+       
+  template: '<div><div>Hello!</div> <slot></slot></div>'
+})
+
+// 创建并挂载到 #app (会替换 #app)
+new MyComponent().$mount('#app2')
+
+
+// 使用Vue构造器创建一个 子类 ，参数是一个包含组件选项的对象，其中data必须是一个函数
+
+// Vue.extend 返回的是一个扩展实例构造器，也就是预设了部分选项的Vue的实例构造器，
+// 它常常服务于 Vue.component用来生成组件
+// //可以简单理解为 当在模板中遇到该组件作为标签时，会自动调用扩展实例构造器
+//来生成组件实例，并挂到自定义元素上
+
+let author = Vue.extend({
+    template: `<p> <a v-bind:href="href">{{author}}</a>  </p>`,
+    data : function () {
+         return {
+            author:"Nic",
+            href:"aaa"
+         }
+    }
+})
+ 
+new author().$mount("section");
+
+var reader = Vue.extend({
+    template: `
+              <p><a v-bind:url="url">{{author}}:{{name}}</a> </p>
+    `,
+    props:{
+        name:{
+            type:String,
+            default:"Nic"
+        }
+    }
+})
+
+new reader({propsData:{name:"My-dear"}}).$mount("reader");
+</script>
+</body>
+</html>

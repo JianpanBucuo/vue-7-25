@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+  <div id="app">
+ <input type="" ref="input1" id="input1" name="">
+ <button @click="add()">Add</button>
+ <my-component ref="com"></my-component>
+ <ul v-for="item in list">
+   <li ref="item">{{item.name}}{{item.age}}</li>
+
+ </ul>
+ </div>
+
+
+ 
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+// ref被用来给元素或者子组件注册引用信息，
+// 引用信息将会注册在父组件的 $refs对象上
+//如果在普通的dom上使用，引用指向的就是dom元素，
+//如果用在子组件上，引用就指向组件实例
+Vue.component("my-component",{
+  template:`
+  <div>
+   <div>Window component</div>
+   <div>{{test}}</div>
+    </div>
+  `,
+  data:function (){
+    return {
+
+     test:"aaa"
+     }
+  }
+})
+
+
+let VuePro = new Vue({
+  el:"#app",
+  methods:{
+    add: function(){
+         this.$refs.input1.value="111";
+         console.log(this.$refs.input1);
+         this.$refs.com.test="111"
+         console.log(this.$refs.com.test);
+         console.log(document.getElementById("input1"));
+    }
+  },
+  data:{
+    list:[
+          {id:0,name:"a",age:14},
+          {id:1,name:"b",age:14},
+          {id:2,name:"c",age:14}
+    ]
+  }
+
+})
+
+//尽管有prop和事件，但是有时仍然需要在Javascript中直接访问子组件，
+//为此可以使用ref为子组件指定一个引用ID
+
+
+let options = {
+  data:　function () {
+         return {
+          firstName: "Nic",
+          lastName: "Jin"
+         }
+     },
+  created: function () {
+      console.log("created");
+  },
+  template: 
+           ` 
+             <p>{{firstName}}</p>
+             <p>{{lastName}}</p>
+           `
+
+}
+
+new Vue(options)
+Vue.component("global-component",Vue.extend(options));
+
+let options2 = Vue.extend(options);
+ 
+ new options2 ({
+  created:function (){
+    console.log(2);
+  }
+ })
+Vue.component("aaaa-v",options2);
+</script>
+</body>
+</html>

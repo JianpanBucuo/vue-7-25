@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Emit</title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+<div id="box">
+             <com-a></com-a>
+              <com-b></com-b>
+             <com-c></com-c>
+           </div>
+<div id="app">
+     <par-a></par-a>
+</div>
+<script type="text/javascript">
+  //触发当前实例上的事件，附加参数都会传给监听器回调
+ 
+ // let Event = new Vue();  
+ //相当于new了一个vue实例，event中含有vue的全部方法
+ // Event.$emit("msg",this.msg);
+ //发送数据，第一个参数是发送数据的名称，接收时还用这个名字接收
+ //第二个参数是这个数据现在的位置
+
+// Event.$on("msg",function(msg){
+//接收数据，第一个参数是数据的名字，与发送时的名字对应
+//第二个参数是一个方法，要对数据的操作
+// <!-- }) -->
+   //准备一个空的实例对象
+              var Event = new Vue();
+              var A={
+                  template:`
+                    <div style="border: 1px solid red; margin-bottom: 10px； width: 300px;">
+                       <h4>A组件</h4>
+                         <p>{{a}}</p>
+                         <input type="button" value="把A数据给C" @click="send" />
+                      </div>
+                  `,
+                  data(){
+                     return {
+                         a:'我是A里面的数据'
+                     }
+                 },
+                 methods:{
+                     send(){        //A发送数据
+                         Event.$emit('a-msg',this.a);
+                      }
+                  }
+              };
+              var B={
+                  template:`
+                      <div style="border: 1px solid green; margin-bottom: 10px； width: 300px;">
+                         <h4>B组件</h4>
+                          <p>{{b}}</p>
+                         <input type="button" value="把B数据给C" @click="send" />
+                      </div>
+                 `,
+                 data(){
+                     return {
+                          b:'我是B里面的数据'
+                     }
+                  },
+                 methods:{
+                      send(){
+                          Event.$emit('b-msg',this.b);
+                    }
+                  }
+              };
+             var C={
+                 template:`
+                      <div style="border: 1px dotted green; margin-bottom: 10px；width: 300px;">
+                          <h4>我是C组件,我在坐等接收数据</h4>
+                          <p>{{a}}</p>
+                          <p>{{b}}</p>
+                     </div>
+                  `,
+                 data(){
+                   return{
+                         a:'',
+                          b:''
+                      }
+                  },
+                  mounted(){        //两种接收的方式
+                     var _this = this;
+                      Event.$on('a-msg',function(a){
+                          _this.a=a;
+                  });
+                    Event.$on('b-msg',function(b){
+                          this.b = b;
+                      }.bind(this))
+                  }
+             };
+            window.onload=function(){
+                new Vue({
+                    el:'#box',
+                     data:{
+                          
+                     },
+                      components:{
+                         'com-a':A,
+                          'com-b':B,
+                        'com-c':C
+                     }
+                  })
+             }
+
+let test = Vue.extend({
+    template: 
+             `
+              <button style="font-size:20px;" @click="increment">{{count}}</button> 
+             ` ,
+    data:function(){
+        return {
+            count:0,
+            mb:2
+        }
+    },
+    methods:{
+        increment( ){
+            this.count++;
+            this.$emit("up",this.mb);
+        }
+    }
+})
+// Vue.component("com-a",test);
+let parent = Vue.extend({
+       components:{ 
+           "com-a":test
+       },
+       template:
+                `
+                 <div id="day">
+                   <div style="font-size:30px;">{{total}}</div>
+                   <com-a v-on:up="upFn"></com-a>
+                 </div>
+                `,
+        data( ){
+            return {
+                total:0
+            }
+        },
+        methods:{
+            upFn(num){
+                this.total += num;
+            }
+        }
+
+})
+Vue.component("par-a",parent);
+new Vue({
+ el:"#app"
+})
+</script>
+</body>
+</html>

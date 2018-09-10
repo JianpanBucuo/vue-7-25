@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+
+    <div id="app">
+        <button @click="change">切换页面</button>
+        <component :is="currentView"></component>
+    </div>
+  
+<script type="text/javascript">
+ 
+let home = {
+    template: `<p>我是主页</p>`
+ }
+
+let post = {
+    template: `<p>我是提交页</p>`
+}
+
+let achrive = {
+    template: `<p>我是存档页</p>`
+}
+
+
+new Vue({
+    el: "#app",
+    components:{
+        home:home,
+        post:post,
+        achrive:achrive
+    },
+    data:{
+        index: 0,
+        arr:["home","post","achrive"]
+    },
+    computed:{
+        currentView: function() {
+            return this.arr[this.index];
+        }
+    },
+    methods:{
+        change: function() {
+            this.index = (++this.index) % 3;
+        }
+    }
+})
+
+</script>
+</body>
+</html>

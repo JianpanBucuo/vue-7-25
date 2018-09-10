@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+	<style type="text/css">
+    
+	</style>
+</head>
+<body>
+   <div id="app">
+      <nav-bar></nav-bar>
+   </div>
+   <div id="demo">
+     <input type="text" ref="input1"  id="input1" name="">
+     <button @click="add">aaa</button>
+     <profile-component ref="com"></profile-component>
+   </div>
+<script type="text/javascript">
+ //ref被用来给元素或子组件组册引用信息
+ //引用信息将会组册在父组件的$refs对象上。
+ //如果在普通的DOM元素上使用
+ //引用指向的就是DOM元素
+ //如果用在子组件上，引用就指向组件实例
+
+let x = Vue.extend({
+    template:`<a>aaa</a> `
+})
+new x().$mount("#app");
+// Vue.component("nav-bar",x);
+ 
+// new Vue({
+//     el:"#app"
+// })
+
+
+var y = Vue.extend({
+         template: ` <h2>aaaa</h2>   `
+})
+Vue.component("profileComponent",y);
+ 
+
+let Vuepro = new Vue({
+    el:"#demo",
+    methods:{
+        add:function(){
+            this.$refs.input1.value="111";
+            console.log(this.$refs.input1);
+            console.log(this.$refs.com);
+        }
+    }
+})
+
+
+</script>
+</body>
+</html>

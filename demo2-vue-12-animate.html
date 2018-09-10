@@ -204,7 +204,8 @@ new Vue({
       this.items.splice(this.randomIndex(), 0, this.nextNum++)
     },
     remove: function () {
-      this.items.splice(this.randomIndex(), 1)
+      this.items.splice(this.randomIndex(), 1);
+      // this.nextNum--;
     },
   }
 })
