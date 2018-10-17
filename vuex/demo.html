@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>VueX</title>
+</head>
+<body>
+<div>
+	Vuex应用的核心是仓库store： 
+	store基本上就是一个容器，它包含着你的应用中大部分的状态(state)，
+	Vuex和单纯的全局对象有两点不同<br>
+	1.Vuex的状态存储是响应式的。当Vue组件从store中读取状态的时候，若store中的状态发生变化，
+	那么相应的组件也会相应地得到高效更新<br>
+	2.你不能直接改变store中的状态。改变store中的状态的唯一途径就是显示地提交(commit)<br>
+	<p>
+		Vuex使用单一状态数，用一个对象就包含了全部的应用层级状态。
+		至此它便作为一个"唯一数据源(SSOT)而存在"。这也意味着，每个应用将仅仅包含一个store实例。
+		单一状态数让我们能够直接地定位任一特定的状态片段。在调试过程中也能轻易地取得整个当前应用状态的快照。
+		<br>
+		单状态数和模块化并不冲突 --将状态和状态变更事件分布到各个子模块中。
+	</p>
+	<p>在Vue组件中获得Vuex状态</p>
+	<p>那么我们如何在Vue组件中展示状态呢?由于Vuex的状态存储是响应式的，从store实例中读取状态最简单的方法就是在计算属性中返回某个状态</p>
+	<p>每当store.state.count变化的时候，都会重新求取计算属性，并且触发更新相关联的DOM</p>
+	<p>这种模式导致组件依赖全局状态单例，在模块化的构件系统中，在每个需要使用state的组件中需要频繁地导入，
+	并且在测试组件时需要模拟状态。</p>
+</div>
+ 
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ const Counter = {
+ 	template: `<div>{{count}}</div>`,
+ 	computed:{
+ 		count () {
+ 			return sotre.state.count
+ 		}
+ 	}
+ }
+
+ const app = new Vue ({
+ 	el:"#app",
+ 	store,
+ 	//把store对象提供给store选项，这可以把store的实例注入所有的子组件。
+ 	components:{Counter},
+ 	template:
+				`
+				<div>
+                 <counter></counter>
+				</div>
+				`
+ })
+
+ // 通过在根实例中注册store选项，该store实例会注入到根组件下的所有子组件中。
+ //并且子组件能通过this.$store访问到。
+
+ const Counter = {
+ 	template:`<div>{{count}}</div>`,
+ 	computed:{
+ 		count () {
+ 			return this.$store.state.count;
+ 		}
+ 	}
+ }
+</script>
+</body>
+</html>

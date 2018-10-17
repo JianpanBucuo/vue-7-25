@@ -18,11 +18,12 @@
     <div @click="handleClick"> {{content}} </div>
      <!-- <div v-text="content"> </div> -->
 </div>
+<div id="example"></div>
  <!-- 插值表达式 -->
 <!--  v-text 标签会进行一次转意
  v-html  标签转义-->
 
-<script type="text/javascript" src="js/script.js"> </script>
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
 <script type="text/javascript">
 	 new Vue({
 	 	el:"#root",
@@ -39,7 +40,15 @@
 	 	}
 	 })
 
-
+   new Vue({
+   	el:"#example",
+   	beforeCreate:function (){
+   		console.log("a");
+   	},
+   	created:function() {
+   		console.log("create");
+   	}
+   })
 </script>
 </body>
 </html>

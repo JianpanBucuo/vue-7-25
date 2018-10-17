@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue resource</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	window.onload = function () {
+		new Vue({
+			el : "#demo",
+			data : {
+				aboutData : []
+			},
+			created : function () {
+				 this.getRoute();
+			},
+			methods:{
+				getRoute : function () {
+					var that = this;
+					that.$http({
+						method: "GET",
+						url: "/resume"  //后台接口
+
+					}).then(function(res) {
+						that.aboutData = res.data
+					}, function(error) {
+						console.log(error);
+					} )
+				}
+			}
+		})
+	}
+</script>
+</body>
+</html>
