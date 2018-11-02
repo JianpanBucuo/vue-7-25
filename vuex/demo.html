@@ -62,6 +62,20 @@
  		}
  	}
  }
+
+
+ const store = new Vuex.Store({
+ 	state:{
+ 		count: 0
+ 	},
+ 	mutations:{
+ 		increment (state) {
+ 			state.count++;
+ 		}
+ 	}
+ })
+ store.commit("increment");
+ //通过store.state获取状态对象， commit方法改变状态
 </script>
 </body>
 </html>

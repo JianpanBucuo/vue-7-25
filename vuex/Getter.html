@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Getter </title>
+</head>
+<body>
+<div>
+ 有时候，我们需要从store中的state中派生出一些状态，例如对列表进行过滤并计数
+
+</div>
+ 
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+ const app = new Vue({
+ 	el:"#app",
+ 	computed:{
+ 		doneTodosCount () {
+ 			return this.state.todos.filter(todo => todo.done).length;
+ 		    // return this.$store.getters.doneTodosCount;
+ 		}
+ 	}
+ })
+//如果有多个组件需要用到此属性，我们要么复制这个函数，或者抽取到一个共享函数然后在多处导入它
+//  -- 无论那种方式都不是很理想
+// Vuex允许我们在store中定义"getter" (可以认为是store的计算属性)。
+//就像计算属性一样，getter的返回值会根据它的依赖被缓存起来，且只有当它的依赖发生改变才会被重新计算
+
+const store = new Vuex.Store({
+	state:{
+		todos:[
+             {id: 1, text: "aaa", done: true},
+             {id: 2, text: "bbb", done: false}
+		]
+	},
+	getters:{
+		doneTodos:state=>{
+			return state.todos.filter(todo.done);
+		},
+		//getter可以接受其他getter作为第二个参数
+		doneTodosCount (state, getters) {
+            return getters.doneTodos.length;
+		}
+	}
+})
+
+//Getter会暴露为store.getters对象，你可以以属性的形式访问这些属性
+store.getters.doneTodos  // 
+ 
+
+
+//mapGetters辅助函数仅仅是将store中的getter映射到局部的计算属性
+
+import { mapGetters } from "Vuex";
+
+export default {
+	//..
+	computed: {
+		...mapGetters({
+			"doneTodosCount",
+			"anotherGetter"
+		})
+	}
+
+} 
+//
+
+
+
+
+</script>
+</body>
+</html>

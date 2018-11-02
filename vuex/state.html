@@ -7,6 +7,7 @@
 </head>
 <body>
 <div>
+	单一数状态，用一个对象包含全部的应用层级状态。“唯一数据源”
  mapState辅助函数
  <p>
  	当一个组件需要获取多个状态的时候，将这些状态都声明为计算属性会有些沉余，为了解决这个问题，
@@ -16,9 +17,91 @@
  
 <!-- <script type="text/javascript" src="js/script.js"> </script> -->
 <script type="text/javascript">
- 
+ //在单独构件的版本中辅助函数为 Vuex.mapState
 
- 
+const app = new Vue({
+	el:"#app",
+	store,
+	//把store对象注入到store选项，这可以把store的实例注入所有的子组件
+	components:{Counter},
+	template: `
+               <div>
+                <Counter></Counter>
+               </div>
+	          `
+});
+//通过在根实例中注册store选项，该store会注入到根组件下的所有子组件中，
+//且子组件可以通过 this.$store访问到
+const Counter = {
+	template: `
+	          <div>{{count}}</div>
+	          `,
+	computed:{
+		count () {
+			return this.$store.state.count
+		}
+	}
+}
+
+
+
+ import { mapState } from "Vuex";
+
+ export default {
+ 	computed: mapState({
+       //箭头函数可使代码更简练
+       count: state => state.count,
+       
+       //传字符串参数"count"等同于 state => state.count
+       countAlias:"count",
+
+       //为了能够使用this获取局部变量，必须使用常规函数
+
+       countPlusLocalState (state) {
+          return this.state.count + this.localcount
+       }
+ 	})
+ }
+//当映射的计算属性与名称与state的子节点名称相同时，我们也可以给mapState传一个字符串数组。
+
+computed: mapState([
+    "count"
+	])
+
+//对象展开运算符
+
+mapState函数返回的是对象。
+//重复mapState
+
+import { mapState } from "Vuex";
+export default {
+	computed:mapState({
+		count: state => state.count;
+
+		countAlias:"count",
+
+		countPlusLocalState (state) {
+			return state.count + this.localcount;
+		}
+	})
+}
+
+//对象展开运算符
+
+mapState函数运算符返回的是一个对象，我们如何将它与局部计算属性合并呢？
+通常我们需要使用一个工具函数将多个对象合并成一个
+
+
+[
+ {base:2,sel:"aaa"},{base:2,sel:"aaa"}
+].map( (x) =>{
+	return  
+		   {
+		       x[base]+ x[sel]  
+		   }
+		 
+	
+})
 </script>
 </body>
 </html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>Module</title>
+</head>
+<body>
+ 
+ <p>
+ 	由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。
+ 	当应用变得非常复杂时，store对象变得就有可能变得相当臃肿。
+
+ 	为了解决以上问题，Vuex允许我们将store分割成模块(module),
+ 	每个模块拥有自己的state，mutationaction，getter。甚至是嵌套子模块
+ </p>
+ <p>
+
+ </p>
+ 
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+  
+const moduleA = {
+	state:{
+
+	},
+	mutations:{
+
+	},
+	actions:{
+
+	},
+	getter:{
+
+	}
+}
+
+const moduleB = {
+	state:{
+
+	},
+	getter:{
+
+	},
+	actions:{
+
+	},
+	getter:{
+
+	}
+}
+
+const store = new Vuex.Store({
+	module:{
+		a:moduleA,
+		b:moduleB
+	}
+})
+
+store.state.a; //moduleA的状态
+store.state.b; //moduleB的状态
+
+
+
+// 对于模块内部的mutation和getter，接收的第一个参数是模块的局部状态对象
+
+const moduleA =  {
+	state: { count: 0 },
+	mutations: {
+		increments ( state ) {
+			//这里的 state对象是模块的局部状态
+			state.count++;
+		}
+	},
+	getter: {
+		doubleCount ( state ) {
+			return state.count * 2;
+		},
+		sumWithRootCount ( state, getters, rootState) {
+			return state.count + rootState.count
+		}
+	},
+	actions:{
+		incrementIfOddOnRootSum ( { state, commit, rootState } ){
+			if ( (state.count + rootState.count) % 2 === 1 ) {
+				commit("increments");
+			}
+		}
+	}
+}
+//同样，对于模块内部的action，局部状态通过 context.state暴露出来，根节点状态则为 context.rootState
+
+
+//命名空间
+ 
+//默认情况下，模块内部的action，mutation和 getter是注册在全局命名空间的。
+//这样使得多个模块能够对同一mutation或action做出反应
+
+
+const store = new Vuex.Store({
+	modules:{
+		account:{
+			namespaced: true,
+
+			state:{
+
+			},
+
+			getters:{
+               isAdmin () {
+               	...
+               }      //  getters["acount/isAdmin"]
+			},
+
+			actions:{
+               login() {
+               	 ...
+               }    //   dispatch("account/login")
+			},
+                 
+			mutations:{
+                login() {
+
+                }  // commit("account/login")
+			},
+
+		}
+	}
+})
+
+
+
+
+
+//在带命名空间的模块内访问全局内容
+
+//如果你希望使用全局 state 和 getter ， rootState 和 rootGetter会作为第三和第四参数传入getter
+//也会通过context对象传入到action
+
+
+
+</script>
+</body>
+</html>

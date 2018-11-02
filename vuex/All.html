@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="js/vue.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>All</title>
+</head>
+<body>
+ Getter 只有他的依赖发生改变，才会被重新计算， 
+  ( state, getter )  有两个参数
+
+Mutations 用来改变 state 状态，只能使用 commit方法来调用 
+
+Action 提交的是mutation，而不是直接变更状态
+Action 可以包含异步函数
+Action 接收一个与store实例具有相同属性和方法的context对象
+Action 通过 dispatch方法触发
+
+
+
+Module
+<!-- <script type="text/javascript" src="js/script.js"> </script> -->
+<script type="text/javascript">
+ 
+ import { mapState } from "Vuex";
+
+ export default {
+ 	computed:mapState({
+ 		count: state => state.count,
+
+ 		countPlusLocalState (state) {
+               return state.count + this.localCount;
+ 		}
+ 	})
+ }
+
+ computed: {
+ 	...mapState({
+ 		 count: state => state.count
+ 	})
+ }
+
+ //Getter
+
+const store = new Vuex.Store({
+	state:{
+		todos:[
+                {id:0, text: "abc", done: true },
+                {id:1, text: "123", done: false}
+		]
+	},
+	getters:{
+		 doneTodos: state =>{
+		 	return state.todos.filter( todo => todo.done )
+		 },
+		 doneTodosLength: (state, getter ) => {
+		 	return getters.doneTodos.length;
+		 }
+	}
+})
+
+const store = new Vuex.Store({
+	state:{
+		count:0
+	},
+	mutations:{
+        increment (state,payLoad) {
+        	state.count += payLoad.amount;
+        }
+	}
+})
+
+store.commit("increment", {amount:10});
+
+store.commit({
+	type:"increment",
+	amount:10
+})
+
+
+const store = new Vuex.Store({
+	state:{
+		count:0
+	}
+	mutations:{
+		increment (state,payLoad) {
+            state.count += payLoad.amount;
+		}
+	},
+	actions:{
+		// increment (context) {
+  //            context.commit("increment")
+		// }
+		increment ( { commit } ) {
+			 commit("increment")
+		}
+	}
+})
+store.dispatch("increment",{amount:10});
+
+//对于模块内部的action，局部状态通过 context.state 暴漏，根节点则为 rootState
+
+const moduleA = {
+	actions:{
+		incrementIfOddOnRootSum ({ state, commit, rootState }){
+
+		}
+	},
+	getters:{
+		sumWithRootCount (state, getters, rootState) {
+			
+		}
+	}
+}
+
+//对于模块内部的getter，跟节点状态会作为第三个参数暴露出来
+
+
+</script>
+
+</body>
+</html>
