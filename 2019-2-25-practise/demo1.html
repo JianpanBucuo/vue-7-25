@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="../js/vue.js"> </script>
+	<title></title>
+<style type="text/css">
+	.has {
+		font-weight: bold;
+	}
+	.color {
+		color: red;
+	}
+	.danger {
+		font-size: 23px;
+	}
+</style>
+</head>
+<body>
+ <div id="app">
+ 	<p>{{msg}}</p>
+    <p> {{revertMsg}}</p>
+    <p class="has" :class="{ color:has, danger:danger }"> {{revertMsgFunc()}}</p>
+    <p :class="classObject">{{firstName}}</p>
+    <p>{{lastName}}</p>
+    <p>{{Name}}</p>
+ </div>
+<script type="text/javascript">
+   var a = new Vue ({
+   	  el:"#app",
+      data:{
+      	msg:"a b c",
+      	firstName:'123',
+      	lastName: 'abc',
+      	has:true,
+      	danger:true,
+      	classObject:{
+      		'color':true,
+      		danger:true
+      	}
+      },
+      computed: {
+      	revertMsg: function () {
+      		return this.msg.split('').reverse().join('');
+      	},
+      	Name: {
+      		get: function() {
+      			return this.firstName + ' ' + this.lastName;
+      		},
+      		set: function (newVal) {
+                 var names = newVal.split(' ');
+                 this.firstName = names[0];
+                 this.lastName = names[1];
+      		}
+      	}
+      },
+      methods:{
+       revertMsgFunc: function () {
+       		return this.msg.split('').reverse().join('');      	
+       }
+      },
+
+   })
+</script>
+</body>
+</html>
