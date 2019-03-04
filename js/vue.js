@@ -334,6 +334,16 @@ function once (fn) {
   }
 }
 
+function once (fn) {
+  var called = false;
+  return function () {
+    if (!called) {
+      called = true;
+      fn.apply(this, arguments);
+    }
+  }
+}
+
 var SSR_ATTR = 'data-server-rendered';
 
 var ASSET_TYPES = [

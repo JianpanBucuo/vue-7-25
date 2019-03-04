@@ -22,13 +22,79 @@
     <p class="has" :class="{ color:has, danger:danger }"> {{revertMsgFunc()}}</p>
     <p :class="classObject">{{firstName}}</p>
     <p>{{lastName}}</p>
-    <p>{{Name}}</p>
+    <p>{{array}}</p>
+    <p @click='toast'>{{Name}}</p>
  </div>
 <script type="text/javascript">
+  // 混入是一种分发Vue组件中复用功能非常灵活的方式。
+  // 混入对象可以包含任意组件项。当组件使用混入对象时，所有混入对象的选项将被混入该组件的选项。
+  // 在调用 new Vue 之前 混入一个对象
+  // 全局混入
+  Vue.mixin({
+    created () {
+      console.log('vue created');
+    },
+    methods:{
+      add () {
+        console.log('I am mixins add');
+      }
+    }
+  })
+  // 原型方法
+  Vue.prototype.con = function () {
+    console.log('con');
+  }
+  var mixins = {
+    created:function () {
+        this.hello();
+    },
+    methods: {
+      hello () {
+
+       console.log(this.Name);
+      }
+    }
+  }
+
+var template = ` <div v-show='show'>I'm toast</div> `;
+var tem = {
+  template:template,
+  data (){
+    return {
+       show: false
+    }
+   
+  }
+}
+const Toast = {
+  install (vue) {
+      const ToastConstructor = Vue.extend(tem);
+      const instance = new ToastConstructor();
+      instance.$mount(document.createElement('div'));
+      document.body.appendChild(instance.$el);
+      vue.prototype.$toast = (show, duration) => {
+        instance.show = true;
+        setTimeout(() => {
+          instance.show = false;
+        }, duration);
+      }
+  }
+};
+
+
+
+Vue.use(Toast);
    var a = new Vue ({
    	  el:"#app",
+      // 局部混入
+      mixins: [mixins],
+      mounted:function (){
+         this.add();
+         this.con();
+      },
       data:{
       	msg:"a b c",
+        array:[1,2,3],
       	firstName:'123',
       	lastName: 'abc',
       	has:true,
@@ -56,6 +122,9 @@
       methods:{
        revertMsgFunc: function () {
        		return this.msg.split('').reverse().join('');      	
+       },
+       toast () {
+        this.$toast();
        }
       },
 
